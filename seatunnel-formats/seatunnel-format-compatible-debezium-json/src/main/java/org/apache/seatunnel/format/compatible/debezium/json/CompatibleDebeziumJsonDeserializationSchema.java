@@ -18,6 +18,7 @@
 
 package org.apache.seatunnel.format.compatible.debezium.json;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.apache.seatunnel.api.serialization.DeserializationSchema;
 import org.apache.seatunnel.api.table.type.BasicType;
 import org.apache.seatunnel.api.table.type.SeaTunnelDataType;
@@ -44,10 +45,14 @@ public class CompatibleDebeziumJsonDeserializationSchema
                     });
 
     private final DebeziumJsonConverter debeziumJsonConverter;
+    private BinlogJsonConverter binlogJsonConverter;
 
     public CompatibleDebeziumJsonDeserializationSchema(
-            boolean keySchemaEnable, boolean valueSchemaEnable) {
+            boolean keySchemaEnable, boolean valueSchemaEnable,boolean converterBinlogJson) {
         this.debeziumJsonConverter = new DebeziumJsonConverter(keySchemaEnable, valueSchemaEnable);
+        if(converterBinlogJson) {
+            this.binlogJsonConverter = new BinlogJsonConverter();
+        }
     }
 
     @Override
@@ -56,9 +61,10 @@ public class CompatibleDebeziumJsonDeserializationSchema
     }
 
     public SeaTunnelRow deserialize(SourceRecord record)
-            throws InvocationTargetException, IllegalAccessException {
+        throws InvocationTargetException, IllegalAccessException, JsonProcessingException {
         String key = debeziumJsonConverter.serializeKey(record);
         String value = debeziumJsonConverter.serializeValue(record);
+        value = binlogJsonConverter==null ? value : binlogJsonConverter.convert(key,value);
         Object[] fields = new Object[] {record.topic(), key, value};
         SeaTunnelRow row = new SeaTunnelRow(fields);
         return row;

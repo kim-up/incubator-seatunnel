@@ -33,6 +33,7 @@ import java.util.Map;
 public class DebeziumJsonDeserializeSchema implements DebeziumDeserializationSchema<SeaTunnelRow> {
     private static final String KEY_SCHEMA_ENABLE = "key.converter.schemas.enable";
     private static final String VALUE_SCHEMA_ENABLE = "value.converter.schemas.enable";
+    private static final String VALUE_BINLOG_ENABLE = "value.converter.binlog.enable";
 
     private final CompatibleDebeziumJsonDeserializationSchema deserializationSchema;
 
@@ -41,8 +42,10 @@ public class DebeziumJsonDeserializeSchema implements DebeziumDeserializationSch
                 Boolean.valueOf(debeziumConfig.getOrDefault(KEY_SCHEMA_ENABLE, "true"));
         boolean valueSchemaEnable =
                 Boolean.valueOf(debeziumConfig.getOrDefault(VALUE_SCHEMA_ENABLE, "true"));
+        boolean converterBinlogJson =
+            Boolean.valueOf(debeziumConfig.getOrDefault(VALUE_BINLOG_ENABLE, "false"));
         this.deserializationSchema =
-                new CompatibleDebeziumJsonDeserializationSchema(keySchemaEnable, valueSchemaEnable);
+                new CompatibleDebeziumJsonDeserializationSchema(keySchemaEnable, valueSchemaEnable,converterBinlogJson);
     }
 
     @Override
