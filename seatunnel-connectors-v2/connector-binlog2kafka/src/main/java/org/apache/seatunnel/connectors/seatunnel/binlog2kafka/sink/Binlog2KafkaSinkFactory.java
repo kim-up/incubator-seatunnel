@@ -40,9 +40,8 @@ public class Binlog2KafkaSinkFactory implements TableSinkFactory {
     @Override
     public TableSink createSink(TableFactoryContext context) {
         return () ->
-            new Binlog2KafkaSink(
-                context.getOptions(),
-                context.getCatalogTable().getTableSchema().toPhysicalRowDataType()
-            );
+                new Binlog2KafkaSink(
+                        context.getOptions(),
+                        context.getCatalogTable().getTableSchema().toPhysicalRowDataType());
     }
 }

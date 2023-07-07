@@ -17,15 +17,6 @@
 
 package org.apache.seatunnel.connectors.seatunnel.binlog2kafka.sink;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
-import java.util.concurrent.atomic.AtomicLong;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.seatunnel.api.configuration.ReadonlyConfig;
 import org.apache.seatunnel.api.sink.SinkWriter;
 import org.apache.seatunnel.api.table.type.SeaTunnelRow;
@@ -38,6 +29,18 @@ import org.apache.seatunnel.connectors.seatunnel.binlog2kafka.sink.state.KafkaCo
 import org.apache.seatunnel.connectors.seatunnel.binlog2kafka.sink.state.KafkaSinkState;
 import org.apache.seatunnel.format.compatible.debezium.json.DebeziumJsonConverter;
 
+import org.apache.commons.lang3.StringUtils;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import lombok.extern.slf4j.Slf4j;
+
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+import java.util.Random;
+import java.util.concurrent.atomic.AtomicLong;
+
 import static org.apache.seatunnel.connectors.seatunnel.binlog2kafka.config.Config.DEFAULT_FIELD_DELIMITER;
 import static org.apache.seatunnel.connectors.seatunnel.binlog2kafka.config.Config.FIELD_DELIMITER;
 import static org.apache.seatunnel.connectors.seatunnel.binlog2kafka.config.Config.FORMAT;
@@ -45,7 +48,8 @@ import static org.apache.seatunnel.connectors.seatunnel.binlog2kafka.config.Conf
 import static org.apache.seatunnel.connectors.seatunnel.binlog2kafka.config.Config.TRANSACTION_PREFIX;
 
 @Slf4j
-public class Binlog2KafkaSinkWriter implements SinkWriter<SeaTunnelRow, KafkaCommitInfo, KafkaSinkState> {
+public class Binlog2KafkaSinkWriter
+        implements SinkWriter<SeaTunnelRow, KafkaCommitInfo, KafkaSinkState> {
 
     private final SeaTunnelRowType seaTunnelRowType;
     public final AtomicLong rowCounter = new AtomicLong(0);
@@ -54,7 +58,7 @@ public class Binlog2KafkaSinkWriter implements SinkWriter<SeaTunnelRow, KafkaCom
     private final BinlogJsonConverter jsonConverter;
     private ReadonlyConfig pluginConfig;
 
-//    private final KafkaProduceSender<byte[], byte[]> kafkaProducerSender;
+    //    private final KafkaProduceSender<byte[], byte[]> kafkaProducerSender;
     private final SeaTunnelRowSerializer<byte[], byte[]> seaTunnelRowSerializer;
 
     private String transactionPrefix;
@@ -62,9 +66,11 @@ public class Binlog2KafkaSinkWriter implements SinkWriter<SeaTunnelRow, KafkaCom
 
     private static final int PREFIX_RANGE = 10000;
 
-    public Binlog2KafkaSinkWriter(SeaTunnelRowType seaTunnelRowType, Context context,
-                                  ReadonlyConfig pluginConfig,
-                                  List<KafkaSinkState> kafkaStates) {
+    public Binlog2KafkaSinkWriter(
+            SeaTunnelRowType seaTunnelRowType,
+            Context context,
+            ReadonlyConfig pluginConfig,
+            List<KafkaSinkState> kafkaStates) {
         this.seaTunnelRowType = seaTunnelRowType;
         this.context = context;
         this.pluginConfig = pluginConfig;
@@ -86,7 +92,8 @@ public class Binlog2KafkaSinkWriter implements SinkWriter<SeaTunnelRow, KafkaCom
     public void write(SeaTunnelRow element) {
         //        String[] arr = new String[seaTunnelRowType.getTotalFields()];
         //        SeaTunnelDataType<?>[] fieldTypes = seaTunnelRowType.getFieldTypes();
-        SeaTunnelRowSerializer<byte[], byte[]> seaTunnelRowSerializer = getSerializer(pluginConfig, seaTunnelRowType);
+        SeaTunnelRowSerializer<byte[], byte[]> seaTunnelRowSerializer =
+                getSerializer(pluginConfig, seaTunnelRowType);
         Object[] fields = element.getFields();
         try {
             String binlogMessage = jsonConverter.convert(fields[1], fields[2]);
@@ -102,9 +109,7 @@ public class Binlog2KafkaSinkWriter implements SinkWriter<SeaTunnelRow, KafkaCom
     }
 
     @Override
-    public void abortPrepare() {
-
-    }
+    public void abortPrepare() {}
 
     @Override
     public void close() {
@@ -115,16 +120,15 @@ public class Binlog2KafkaSinkWriter implements SinkWriter<SeaTunnelRow, KafkaCom
         String[] fieldsInfo = new String[seaTunnelRowType.getTotalFields()];
         for (int i = 0; i < seaTunnelRowType.getTotalFields(); i++) {
             fieldsInfo[i] =
-                String.format(
-                    "%s<%s>",
-                    seaTunnelRowType.getFieldName(i), seaTunnelRowType.getFieldType(i)
-                );
+                    String.format(
+                            "%s<%s>",
+                            seaTunnelRowType.getFieldName(i), seaTunnelRowType.getFieldType(i));
         }
         return StringUtils.join(fieldsInfo, ", ");
     }
 
     private SeaTunnelRowSerializer<byte[], byte[]> getSerializer(
-        ReadonlyConfig pluginConfig, SeaTunnelRowType seaTunnelRowType) {
+            ReadonlyConfig pluginConfig, SeaTunnelRowType seaTunnelRowType) {
         MessageFormat messageFormat = pluginConfig.get(FORMAT);
         String delimiter = DEFAULT_FIELD_DELIMITER;
 
@@ -135,7 +139,7 @@ public class Binlog2KafkaSinkWriter implements SinkWriter<SeaTunnelRow, KafkaCom
         String topic = pluginConfig.get(TOPIC);
         // By default, all partitions are sent randomly
         return DefaultSeaTunnelRowSerializer.create(
-            topic, Arrays.asList(), seaTunnelRowType, messageFormat, delimiter);
+                topic, Arrays.asList(), seaTunnelRowType, messageFormat, delimiter);
     }
 
     private void restoreState(List<KafkaSinkState> states) {

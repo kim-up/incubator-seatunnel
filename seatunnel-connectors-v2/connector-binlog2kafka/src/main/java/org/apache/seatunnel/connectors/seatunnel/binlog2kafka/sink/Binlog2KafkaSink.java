@@ -17,34 +17,34 @@
 
 package org.apache.seatunnel.connectors.seatunnel.binlog2kafka.sink;
 
-import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
+import org.apache.seatunnel.shade.com.typesafe.config.Config;
+
 import org.apache.seatunnel.api.configuration.ReadonlyConfig;
 import org.apache.seatunnel.api.serialization.DefaultSerializer;
 import org.apache.seatunnel.api.serialization.Serializer;
-import org.apache.seatunnel.api.sink.SinkAggregatedCommitter;
-import org.apache.seatunnel.api.sink.SinkCommitter;
-import org.apache.seatunnel.connectors.seatunnel.binlog2kafka.sink.state.KafkaAggregatedCommitInfo;
-import org.apache.seatunnel.connectors.seatunnel.binlog2kafka.sink.state.KafkaCommitInfo;
-import org.apache.seatunnel.connectors.seatunnel.binlog2kafka.sink.state.KafkaSinkState;
-import org.apache.seatunnel.shade.com.typesafe.config.Config;
-
 import org.apache.seatunnel.api.sink.SeaTunnelSink;
+import org.apache.seatunnel.api.sink.SinkCommitter;
 import org.apache.seatunnel.api.sink.SinkWriter;
 import org.apache.seatunnel.api.table.type.SeaTunnelDataType;
 import org.apache.seatunnel.api.table.type.SeaTunnelRow;
 import org.apache.seatunnel.api.table.type.SeaTunnelRowType;
+import org.apache.seatunnel.connectors.seatunnel.binlog2kafka.sink.state.KafkaAggregatedCommitInfo;
+import org.apache.seatunnel.connectors.seatunnel.binlog2kafka.sink.state.KafkaCommitInfo;
+import org.apache.seatunnel.connectors.seatunnel.binlog2kafka.sink.state.KafkaSinkState;
 
 import com.google.auto.service.AutoService;
 import lombok.NoArgsConstructor;
 
+import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+
 @NoArgsConstructor
 @AutoService(SeaTunnelSink.class)
-public class Binlog2KafkaSink implements SeaTunnelSink<
-    SeaTunnelRow, KafkaSinkState, KafkaCommitInfo, KafkaAggregatedCommitInfo> {
+public class Binlog2KafkaSink
+        implements SeaTunnelSink<
+                SeaTunnelRow, KafkaSinkState, KafkaCommitInfo, KafkaAggregatedCommitInfo> {
 
     private SeaTunnelRowType seaTunnelRowType;
     private ReadonlyConfig pluginConfig;
@@ -65,13 +65,16 @@ public class Binlog2KafkaSink implements SeaTunnelSink<
     }
 
     @Override
-    public SinkWriter<SeaTunnelRow, KafkaCommitInfo, KafkaSinkState> createWriter(final SinkWriter.Context context) throws IOException {
-        return new Binlog2KafkaSinkWriter(seaTunnelRowType, context, pluginConfig, Collections.emptyList());
+    public SinkWriter<SeaTunnelRow, KafkaCommitInfo, KafkaSinkState> createWriter(
+            final SinkWriter.Context context) throws IOException {
+        return new Binlog2KafkaSinkWriter(
+                seaTunnelRowType, context, pluginConfig, Collections.emptyList());
     }
 
     @Override
-    public SinkWriter<SeaTunnelRow, KafkaCommitInfo, KafkaSinkState> restoreWriter(final SinkWriter.Context context,
-                                                                                   final List<KafkaSinkState> states) throws IOException {
+    public SinkWriter<SeaTunnelRow, KafkaCommitInfo, KafkaSinkState> restoreWriter(
+            final SinkWriter.Context context, final List<KafkaSinkState> states)
+            throws IOException {
         return new Binlog2KafkaSinkWriter(seaTunnelRowType, context, pluginConfig, states);
     }
 
@@ -96,6 +99,5 @@ public class Binlog2KafkaSink implements SeaTunnelSink<
     }
 
     @Override
-    public void prepare(Config pluginConfig) {
-    }
+    public void prepare(Config pluginConfig) {}
 }

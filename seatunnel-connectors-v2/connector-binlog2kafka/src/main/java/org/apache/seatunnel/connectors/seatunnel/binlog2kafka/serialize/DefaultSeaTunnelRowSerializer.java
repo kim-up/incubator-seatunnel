@@ -17,14 +17,6 @@
 
 package org.apache.seatunnel.connectors.seatunnel.binlog2kafka.serialize;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.function.Function;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import lombok.RequiredArgsConstructor;
-import org.apache.kafka.clients.producer.ProducerRecord;
-import org.apache.kafka.common.header.Header;
 import org.apache.seatunnel.api.serialization.SerializationSchema;
 import org.apache.seatunnel.api.table.type.SeaTunnelDataType;
 import org.apache.seatunnel.api.table.type.SeaTunnelRow;
@@ -38,6 +30,17 @@ import org.apache.seatunnel.format.json.JsonSerializationSchema;
 import org.apache.seatunnel.format.json.canal.CanalJsonSerializationSchema;
 import org.apache.seatunnel.format.json.exception.SeaTunnelJsonFormatException;
 import org.apache.seatunnel.format.text.TextSerializationSchema;
+
+import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.common.header.Header;
+
+import lombok.RequiredArgsConstructor;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Function;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @RequiredArgsConstructor
 public class DefaultSeaTunnelRowSerializer implements SeaTunnelRowSerializer {
@@ -60,7 +63,7 @@ public class DefaultSeaTunnelRowSerializer implements SeaTunnelRowSerializer {
     }
 
     public static DefaultSeaTunnelRowSerializer create(
-        String topic, SeaTunnelRowType rowType, MessageFormat format, String delimiter) {
+            String topic, SeaTunnelRowType rowType, MessageFormat format, String delimiter) {
         return new DefaultSeaTunnelRowSerializer(
                 topicExtractor(topic, rowType, format),
                 partitionExtractor(null),

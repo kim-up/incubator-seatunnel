@@ -18,22 +18,22 @@
 package org.apache.seatunnel.connectors.seatunnel.binlog2kafka.sink.state;
 
 import java.io.Serializable;
-import java.util.Set;
-//import org.apache.seatunnel.connectors.seatunnel.kafka.source.KafkaSourceSplit;
+
+// import org.apache.seatunnel.connectors.seatunnel.kafka.source.KafkaSourceSplit;
 
 public class KafkaSourceState implements Serializable {
 
-//    private Set<KafkaSourceSplit> assignedSplit;
-//
-//    public KafkaSourceState(Set<KafkaSourceSplit> assignedSplit) {
-//        this.assignedSplit = assignedSplit;
-//    }
-//
-//    public Set<KafkaSourceSplit> getAssignedSplit() {
-//        return assignedSplit;
-//    }
-//
-//    public void setAssignedSplit(Set<KafkaSourceSplit> assignedSplit) {
-//        this.assignedSplit = assignedSplit;
-//    }
+    //    private Set<KafkaSourceSplit> assignedSplit;
+    //
+    //    public KafkaSourceState(Set<KafkaSourceSplit> assignedSplit) {
+    //        this.assignedSplit = assignedSplit;
+    //    }
+    //
+    //    public Set<KafkaSourceSplit> getAssignedSplit() {
+    //        return assignedSplit;
+    //    }
+    //
+    //    public void setAssignedSplit(Set<KafkaSourceSplit> assignedSplit) {
+    //        this.assignedSplit = assignedSplit;
+    //    }
 }

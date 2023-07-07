@@ -18,7 +18,6 @@
 
 package org.apache.seatunnel.format.compatible.debezium.json;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.apache.seatunnel.api.serialization.DeserializationSchema;
 import org.apache.seatunnel.api.table.type.BasicType;
 import org.apache.seatunnel.api.table.type.SeaTunnelDataType;
@@ -26,6 +25,8 @@ import org.apache.seatunnel.api.table.type.SeaTunnelRow;
 import org.apache.seatunnel.api.table.type.SeaTunnelRowType;
 
 import org.apache.kafka.connect.source.SourceRecord;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -48,9 +49,9 @@ public class CompatibleDebeziumJsonDeserializationSchema
     private BinlogJsonConverter binlogJsonConverter;
 
     public CompatibleDebeziumJsonDeserializationSchema(
-            boolean keySchemaEnable, boolean valueSchemaEnable,boolean converterBinlogJson) {
+            boolean keySchemaEnable, boolean valueSchemaEnable, boolean converterBinlogJson) {
         this.debeziumJsonConverter = new DebeziumJsonConverter(keySchemaEnable, valueSchemaEnable);
-        if(converterBinlogJson) {
+        if (converterBinlogJson) {
             this.binlogJsonConverter = new BinlogJsonConverter();
         }
     }
@@ -61,10 +62,10 @@ public class CompatibleDebeziumJsonDeserializationSchema
     }
 
     public SeaTunnelRow deserialize(SourceRecord record)
-        throws InvocationTargetException, IllegalAccessException, JsonProcessingException {
+            throws InvocationTargetException, IllegalAccessException, JsonProcessingException {
         String key = debeziumJsonConverter.serializeKey(record);
         String value = debeziumJsonConverter.serializeValue(record);
-        value = binlogJsonConverter==null ? value : binlogJsonConverter.convert(key,value);
+        value = binlogJsonConverter == null ? value : binlogJsonConverter.convert(key, value);
         Object[] fields = new Object[] {record.topic(), key, value};
         SeaTunnelRow row = new SeaTunnelRow(fields);
         return row;

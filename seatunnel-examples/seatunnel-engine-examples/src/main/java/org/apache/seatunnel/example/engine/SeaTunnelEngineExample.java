@@ -32,7 +32,7 @@ public class SeaTunnelEngineExample {
     public static void main(String[] args)
             throws FileNotFoundException, URISyntaxException, CommandException {
         String configurePath =
-                args.length > 0 ? args[0] : "/examples/mysql2kafka/fake_to_console.conf";
+                args.length > 0 ? args[0] : "/examples/mysql2kafka/fake_to_console_gsdb.conf";
         String configFile = getTestConfigFile(configurePath);
         ClientCommandArgs clientCommandArgs = new ClientCommandArgs();
         clientCommandArgs.setConfigFile(configFile);

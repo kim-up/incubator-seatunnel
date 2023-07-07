@@ -17,8 +17,9 @@
 
 package org.apache.seatunnel.connectors.seatunnel.binlog2kafka.serialize;
 
-import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.seatunnel.api.table.type.SeaTunnelRow;
+
+import org.apache.kafka.clients.producer.ProducerRecord;
 
 public interface SeaTunnelRowSerializer<K, V> {
 

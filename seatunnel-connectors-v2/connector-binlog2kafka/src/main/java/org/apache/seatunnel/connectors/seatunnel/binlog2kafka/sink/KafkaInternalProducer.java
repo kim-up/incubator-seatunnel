@@ -17,18 +17,21 @@
 
 package org.apache.seatunnel.connectors.seatunnel.binlog2kafka.sink;
 
+import org.apache.seatunnel.common.utils.ReflectionUtils;
+import org.apache.seatunnel.connectors.seatunnel.binlog2kafka.sink.exception.KafkaConnectorErrorCode;
+import org.apache.seatunnel.connectors.seatunnel.binlog2kafka.sink.exception.KafkaConnectorException;
+
+import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.internals.TransactionManager;
+import org.apache.kafka.common.errors.ProducerFencedException;
+
+import lombok.extern.slf4j.Slf4j;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Optional;
 import java.util.Properties;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.internals.TransactionManager;
-import org.apache.kafka.common.errors.ProducerFencedException;
-import org.apache.seatunnel.common.utils.ReflectionUtils;
-import org.apache.seatunnel.connectors.seatunnel.binlog2kafka.sink.exception.KafkaConnectorErrorCode;
-import org.apache.seatunnel.connectors.seatunnel.binlog2kafka.sink.exception.KafkaConnectorException;
 
 /** A {@link KafkaProducer} that allow resume transaction from transactionId */
 @Slf4j
@@ -140,9 +143,9 @@ public class KafkaInternalProducer<K, V> extends KafkaProducer<K, V> {
                 | NoSuchFieldException
                 | NoSuchMethodException e) {
             throw new KafkaConnectorException(
-                KafkaConnectorErrorCode.VERSION_INCOMPATIBLE,
-                "Incompatible KafkaProducer version",
-                e);
+                    KafkaConnectorErrorCode.VERSION_INCOMPATIBLE,
+                    "Incompatible KafkaProducer version",
+                    e);
         }
     }
 

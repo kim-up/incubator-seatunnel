@@ -20,13 +20,14 @@ package org.apache.seatunnel.format.compatible.debezium.json;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.Serializable;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class BinlogJsonConverter implements Converter, Serializable {
@@ -98,22 +99,20 @@ public class BinlogJsonConverter implements Converter, Serializable {
         if (binLogMessage.getType() == BinLogMessage.operationType.INSERT) {
             Map<String, Object> sqlType = new HashMap<>();
             dbzBinlog.getSchema().getFields().stream()
-                     .filter(f -> "after".equals(f.getField()))
-                     .findFirst()
-                     .ifPresent(
-                         f -> {
-                             f.getFields()
-                              .forEach(
-                                  field -> {
-                                      sqlType.put(
-                                          field.getField(),
-                                          dbzType2SqlType(
-                                              field.getName(),
-                                              field.getType()
-                                          )
-                                      );
-                                  });
-                         });
+                    .filter(f -> "after".equals(f.getField()))
+                    .findFirst()
+                    .ifPresent(
+                            f -> {
+                                f.getFields()
+                                        .forEach(
+                                                field -> {
+                                                    sqlType.put(
+                                                            field.getField(),
+                                                            dbzType2SqlType(
+                                                                    field.getName(),
+                                                                    field.getType()));
+                                                });
+                            });
             binLogMessage.setSqlType(sqlType);
         }
     }
@@ -176,5 +175,4 @@ public class BinlogJsonConverter implements Converter, Serializable {
             }
         }
     }
-
 }

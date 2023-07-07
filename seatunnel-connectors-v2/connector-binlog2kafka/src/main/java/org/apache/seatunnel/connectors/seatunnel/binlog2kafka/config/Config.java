@@ -17,10 +17,11 @@
 
 package org.apache.seatunnel.connectors.seatunnel.binlog2kafka.config;
 
-import java.util.List;
-import java.util.Map;
 import org.apache.seatunnel.api.configuration.Option;
 import org.apache.seatunnel.api.configuration.Options;
+
+import java.util.List;
+import java.util.Map;
 
 public class Config {
 
@@ -91,12 +92,12 @@ public class Config {
                             "The structure of the data, including field names and field types.");
 
     public static final Option<MessageFormat> FORMAT =
-        Options.key("format")
-               .enumType(MessageFormat.class)
-               .defaultValue(MessageFormat.JSON)
-               .withDescription(
-                   "Data format. The default format is json. Optional text format. The default field separator is \", \". "
-                       + "If you customize the delimiter, add the \"field_delimiter\" option.");
+            Options.key("format")
+                    .enumType(MessageFormat.class)
+                    .defaultValue(MessageFormat.JSON)
+                    .withDescription(
+                            "Data format. The default format is json. Optional text format. The default field separator is \", \". "
+                                    + "If you customize the delimiter, add the \"field_delimiter\" option.");
 
     public static final Option<String> FIELD_DELIMITER =
             Options.key("field_delimiter")

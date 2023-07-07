@@ -43,9 +43,10 @@ public class DebeziumJsonDeserializeSchema implements DebeziumDeserializationSch
         boolean valueSchemaEnable =
                 Boolean.valueOf(debeziumConfig.getOrDefault(VALUE_SCHEMA_ENABLE, "true"));
         boolean converterBinlogJson =
-            Boolean.valueOf(debeziumConfig.getOrDefault(VALUE_BINLOG_ENABLE, "false"));
+                Boolean.valueOf(debeziumConfig.getOrDefault(VALUE_BINLOG_ENABLE, "false"));
         this.deserializationSchema =
-                new CompatibleDebeziumJsonDeserializationSchema(keySchemaEnable, valueSchemaEnable,converterBinlogJson);
+                new CompatibleDebeziumJsonDeserializationSchema(
+                        keySchemaEnable, valueSchemaEnable, converterBinlogJson);
     }
 
     @Override
