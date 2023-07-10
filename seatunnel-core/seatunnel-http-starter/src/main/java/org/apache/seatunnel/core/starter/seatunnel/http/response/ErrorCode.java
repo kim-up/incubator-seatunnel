@@ -15,20 +15,34 @@
  * limitations under the License.
  */
 
-package org.apache.seatunnel.core.starter.seatunnel.http;
+package org.apache.seatunnel.core.starter.seatunnel.http.response;
 
-import org.apache.seatunnel.common.config.Common;
-import org.apache.seatunnel.common.config.DeployMode;
+public enum ErrorCode {
+    BUSINESS_ERROR(1001, "business error: {}"),
+    PARAM_ERROR(1002, "param error: {}");
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.gson.GsonAutoConfiguration;
+    ErrorCode(int code, String message) {
+        this.code = code;
+        this.message = message;
+    }
 
-@SpringBootApplication(exclude = {GsonAutoConfiguration.class})
-public class Application {
+    private int code;
 
-    public static void main(String[] args) {
-        Common.setDeployMode(DeployMode.CLIENT);
-        SpringApplication.run(Application.class, args);
+    private String message;
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(final int code) {
+        this.code = code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(final String message) {
+        this.message = message;
     }
 }

@@ -83,6 +83,10 @@ public class SeaTunnelClient implements SeaTunnelClientInstance {
         hazelcastClient.shutdown();
     }
 
+    public boolean clientIsActive() {
+        return hazelcastClient.getHazelcastInstance().getLifecycleService().isRunning();
+    }
+
     /**
      * get job status and the tasks status
      *

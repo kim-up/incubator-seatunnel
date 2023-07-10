@@ -15,20 +15,18 @@
  * limitations under the License.
  */
 
-package org.apache.seatunnel.core.starter.seatunnel.http;
+package org.apache.seatunnel.core.starter.seatunnel.http.service;
 
-import org.apache.seatunnel.common.config.Common;
-import org.apache.seatunnel.common.config.DeployMode;
+import org.apache.seatunnel.core.starter.seatunnel.http.request.JobSubmitRequest;
+import org.apache.seatunnel.core.starter.seatunnel.http.response.JobSubmitResponse;
+import org.apache.seatunnel.engine.core.job.JobDAGInfo;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.gson.GsonAutoConfiguration;
+public interface JobService {
+    String jobMetric(Long jobId);
 
-@SpringBootApplication(exclude = {GsonAutoConfiguration.class})
-public class Application {
+    JobDAGInfo jobInfo(Long jobId);
 
-    public static void main(String[] args) {
-        Common.setDeployMode(DeployMode.CLIENT);
-        SpringApplication.run(Application.class, args);
-    }
+    String listJobStatus(boolean format);
+
+    JobSubmitResponse submit(JobSubmitRequest request) throws Exception;
 }

@@ -15,20 +15,13 @@
  * limitations under the License.
  */
 
-package org.apache.seatunnel.core.starter.seatunnel.http;
+package org.apache.seatunnel.core.starter.seatunnel.http.request;
 
-import org.apache.seatunnel.common.config.Common;
-import org.apache.seatunnel.common.config.DeployMode;
+import lombok.Data;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.gson.GsonAutoConfiguration;
+@Data
+public class JobSubmitRequest {
 
-@SpringBootApplication(exclude = {GsonAutoConfiguration.class})
-public class Application {
-
-    public static void main(String[] args) {
-        Common.setDeployMode(DeployMode.CLIENT);
-        SpringApplication.run(Application.class, args);
-    }
+    private String jobName;
+    private String jobConfig;
 }
