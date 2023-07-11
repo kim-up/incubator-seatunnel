@@ -47,18 +47,43 @@ public class JobController {
         }
     }
 
+    @GetMapping("/cancel/{jobId}")
+    public ApiResult<Boolean> cancelJob(@PathVariable("jobId") Long jobId) {
+        return ApiResult.success(jobService.cancelJob(jobId));
+    }
+
+    @GetMapping("/savePoint/{jobId}")
+    public ApiResult<Boolean> savePointJob(@PathVariable("jobId") Long jobId) {
+        return ApiResult.success(jobService.savePointJob(jobId));
+    }
+
     @GetMapping("/metric/{jobId}")
     public ApiResult<String> jobMetric(@PathVariable("jobId") Long jobId) {
-        return ApiResult.success(jobService.jobMetric(jobId));
+        return ApiResult.success(jobService.getJobMetrics(jobId));
     }
 
     @GetMapping("/jobInfo/{jobId}")
     public ApiResult<JobDAGInfo> jobInfo(@PathVariable("jobId") Long jobId) {
-        return ApiResult.success(jobService.jobInfo(jobId));
+        return ApiResult.success(jobService.getJobInfo(jobId));
+    }
+
+    @GetMapping("/jobStatus/{jobId}")
+    public ApiResult<String> jobStatus(@PathVariable("jobId") Long jobId) {
+        return ApiResult.success(jobService.getJobStatus(jobId));
+    }
+
+    @GetMapping("/jobDetailStatus/{jobId}")
+    public ApiResult<String> jobDetailStatus(@PathVariable("jobId") Long jobId) {
+        return ApiResult.success(jobService.getJobDetailStatus(jobId));
     }
 
     @GetMapping("/listJobStatus")
     public ApiResult<String> listJobStatus(@RequestParam("format") boolean format) {
         return ApiResult.success(jobService.listJobStatus(format));
+    }
+
+    @GetMapping("/runningJobMetrics")
+    public ApiResult<String> runningJobMetrics() {
+        return ApiResult.success(jobService.getRunningJobMetrics());
     }
 }

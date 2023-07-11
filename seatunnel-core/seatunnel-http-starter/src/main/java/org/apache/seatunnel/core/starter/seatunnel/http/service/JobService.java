@@ -19,14 +19,28 @@ package org.apache.seatunnel.core.starter.seatunnel.http.service;
 
 import org.apache.seatunnel.core.starter.seatunnel.http.request.JobSubmitRequest;
 import org.apache.seatunnel.core.starter.seatunnel.http.response.JobSubmitResponse;
+import org.apache.seatunnel.engine.client.job.JobMetricsRunner;
 import org.apache.seatunnel.engine.core.job.JobDAGInfo;
 
 public interface JobService {
-    String jobMetric(Long jobId);
 
-    JobDAGInfo jobInfo(Long jobId);
+    JobSubmitResponse submit(JobSubmitRequest request) throws Exception;
+
+    String getRunningJobMetrics();
+
+    String getJobMetrics(Long jobId);
+
+    String getJobStatus(Long jobId);
+
+    String getJobDetailStatus(Long jobId);
+
+    Boolean savePointJob(Long jobId);
+
+    Boolean cancelJob(Long jobId);
+
+    JobDAGInfo getJobInfo(Long jobId);
 
     String listJobStatus(boolean format);
 
-    JobSubmitResponse submit(JobSubmitRequest request) throws Exception;
+    JobMetricsRunner.JobMetricsSummary getJobMetricsSummary(Long jobId);
 }

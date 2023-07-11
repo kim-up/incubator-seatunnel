@@ -26,6 +26,7 @@ import org.apache.seatunnel.core.starter.seatunnel.http.utils.HostAddressUtil;
 import org.apache.seatunnel.engine.client.job.ClientJobProxy;
 import org.apache.seatunnel.engine.client.job.JobClient;
 import org.apache.seatunnel.engine.client.job.JobExecutionEnvironment;
+import org.apache.seatunnel.engine.client.job.JobMetricsRunner;
 import org.apache.seatunnel.engine.common.config.JobConfig;
 import org.apache.seatunnel.engine.core.job.JobDAGInfo;
 
@@ -84,13 +85,45 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
-    public String jobMetric(final Long jobId) {
+    public String getRunningJobMetrics() {
+        return jobClient().getRunningJobMetrics();
+    }
+
+    @Override
+    public String getJobMetrics(final Long jobId) {
         return jobClient().getJobMetrics(jobId);
     }
 
     @Override
-    public JobDAGInfo jobInfo(final Long jobId) {
+    public String getJobStatus(final Long jobId) {
+        return jobClient().getJobStatus(jobId);
+    }
+
+    @Override
+    public String getJobDetailStatus(final Long jobId) {
+        return jobClient().getJobDetailStatus(jobId);
+    }
+
+    @Override
+    public Boolean savePointJob(final Long jobId) {
+        jobClient().savePointJob(jobId);
+        return true;
+    }
+
+    @Override
+    public Boolean cancelJob(final Long jobId) {
+        jobClient().cancelJob(jobId);
+        return true;
+    }
+
+    @Override
+    public JobDAGInfo getJobInfo(final Long jobId) {
         return jobClient().getJobInfo(jobId);
+    }
+
+    @Override
+    public JobMetricsRunner.JobMetricsSummary getJobMetricsSummary(final Long jobId) {
+        return jobClient().getJobMetricsSummary(jobId);
     }
 
     @Override
