@@ -36,6 +36,7 @@
         <module>seatunnel-spark-starter</module>
         <module>seatunnel-starter</module>
         <module>seatunnel-rest-starter</module>
+        <module>seatunnel-http-starter</module>
     </modules>
 
     <build>
