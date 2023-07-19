@@ -22,7 +22,7 @@
             <groupId>org.apache.seatunnel</groupId>
             <artifactId>seatunnel-transforms-v2</artifactId>
             <version>${project.version}</version>
-<!--            <scope>provided</scope>-->
+            <!--            <scope>provided</scope>-->
         </dependency>
         <!--   seatunnel-transforms-v2   -->
 
@@ -30,13 +30,13 @@
             <groupId>org.apache.seatunnel</groupId>
             <artifactId>connector-fake</artifactId>
             <version>${project.version}</version>
-<!--            <scope>provided</scope>-->
+            <!--            <scope>provided</scope>-->
         </dependency>
         <dependency>
             <groupId>org.apache.seatunnel</groupId>
             <artifactId>connector-console</artifactId>
             <version>${project.version}</version>
-<!--            <scope>provided</scope>-->
+            <!--            <scope>provided</scope>-->
         </dependency>
         <dependency>
             <groupId>org.apache.seatunnel</groupId>
@@ -48,7 +48,7 @@
             <groupId>org.apache.seatunnel</groupId>
             <artifactId>connector-cdc-mysql</artifactId>
             <version>${project.version}</version>
-<!--            <scope>provided</scope>-->
+            <!--            <scope>provided</scope>-->
         </dependency>
         <dependency>
             <groupId>org.apache.seatunnel</groupId>
@@ -60,7 +60,7 @@
             <groupId>org.apache.seatunnel</groupId>
             <artifactId>connector-kafka</artifactId>
             <version>${project.version}</version>
-<!--            <scope>provided</scope>-->
+            <!--            <scope>provided</scope>-->
         </dependency>
 
     </dependencies>

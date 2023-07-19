@@ -33,7 +33,6 @@ import com.hazelcast.internal.serialization.Data;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.net.MalformedURLException;
 import java.util.Collections;
 import java.util.concurrent.TimeUnit;
 
@@ -85,8 +84,7 @@ public class CoordinatorServiceTest {
     @SuppressWarnings("checkstyle:RegexpSingleline")
     @Test
     public void testClearCoordinatorService()
-            throws MalformedURLException, NoSuchMethodException, InvocationTargetException,
-                    IllegalAccessException {
+            throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         HazelcastInstanceImpl coordinatorServiceTest =
                 SeaTunnelServerStarter.createHazelcastInstance(
                         TestUtils.getClusterName(
@@ -141,7 +139,7 @@ public class CoordinatorServiceTest {
 
     @Test
     @Disabled("disabled because we can not know")
-    public void testJobRestoreWhenMasterNodeSwitch() throws InterruptedException {
+    public void testJobRestoreWhenMasterNodeSwitch() {
         HazelcastInstanceImpl instance1 =
                 SeaTunnelServerStarter.createHazelcastInstance(
                         TestUtils.getClusterName(
