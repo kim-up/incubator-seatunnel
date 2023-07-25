@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <property name="LOG_HOME" value="./logs/seatunnel-http"/>
+    <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter"/>
+    <conversionRule conversionWord="wex"
+                    converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter"/>
+    <conversionRule conversionWord="wEx"
+                    converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter"/>
+
+    <!-- 定义日志存储的路径，不要配置相对路径 -->
+    <property name="CONSOLE_LOG_PATTERN"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} [ %level ] [ seatunnel-http ] [ 1.0 ] [ big-data ] [ : ] [ - ] [ %thread ] [ %F:%L ] [ %method ] [ - ] [ - ] [ - ] - %msg%n"/>
+
+
+    <appender name="seatunnel" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${LOG_HOME}/fin.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${LOG_HOME}/seatunnel.log.%d{yyyy-MM-dd}.gz</FileNamePattern>
+            <MaxHistory>8</MaxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+        </encoder>
+        <append>true</append>
+    </appender>
+
+    <appender name="error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${LOG_HOME}/error.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${LOG_HOME}/error.log.%d{yyyy-MM-dd}.gz</FileNamePattern>
+            <MaxHistory>8</MaxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+        </encoder>
+        <append>true</append>
+    </appender>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="seatunnel"/>
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+    <logger name="error" additivity="false">
+        <level value="ERROR"/>
+        <appender-ref ref="error"/>
+        <appender-ref ref="STDOUT"/>
+    </logger>
+</configuration>

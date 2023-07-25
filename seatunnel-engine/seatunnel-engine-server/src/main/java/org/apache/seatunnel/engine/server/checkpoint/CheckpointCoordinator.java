@@ -261,6 +261,7 @@ public class CheckpointCoordinator {
     }
 
     private void handleCoordinatorError(CheckpointCloseReason reason, Throwable e) {
+        LOG.error("handleCoordinatorError:", e);
         CheckpointException checkpointException = new CheckpointException(reason, e);
         errorByPhysicalVertex.compareAndSet(null, ExceptionUtils.getMessage(checkpointException));
 

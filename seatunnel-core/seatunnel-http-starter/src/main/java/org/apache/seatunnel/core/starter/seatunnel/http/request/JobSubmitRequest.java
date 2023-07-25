@@ -24,4 +24,5 @@ public class JobSubmitRequest {
 
     private String jobName;
     private String jobConfig;
+    private Boolean byCmd;
 }

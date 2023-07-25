@@ -22,6 +22,7 @@ import org.apache.seatunnel.core.starter.seatunnel.http.client.ClientInstance;
 import org.apache.seatunnel.core.starter.seatunnel.http.request.JobSubmitRequest;
 import org.apache.seatunnel.core.starter.seatunnel.http.response.JobSubmitResponse;
 import org.apache.seatunnel.core.starter.seatunnel.http.service.JobService;
+import org.apache.seatunnel.core.starter.seatunnel.http.utils.CommandUtils;
 import org.apache.seatunnel.core.starter.seatunnel.http.utils.HostAddressUtil;
 import org.apache.seatunnel.engine.client.job.ClientJobProxy;
 import org.apache.seatunnel.engine.client.job.JobClient;
@@ -30,13 +31,17 @@ import org.apache.seatunnel.engine.client.job.JobMetricsRunner;
 import org.apache.seatunnel.engine.common.config.JobConfig;
 import org.apache.seatunnel.engine.core.job.JobDAGInfo;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.zeroturnaround.exec.stream.LogOutputStream;
 
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Base64;
+import java.util.concurrent.TimeoutException;
 
 @Service
 @Slf4j
@@ -44,6 +49,10 @@ public class JobServiceImpl implements JobService {
 
     private static String JOB_CONFIG_DIR = "jobConfig";
     private static String FILE_EXTENSION = ".conf";
+
+    @Value(
+            "${seatunnel.home:/Users/zhujinming/Desktop/seatunnel/local/apache-seatunnel-2.3.2-SNAPSHOT}")
+    private String seatunnelHome;
 
     @Override
     public JobSubmitResponse submit(final JobSubmitRequest request) throws Exception {
@@ -68,6 +77,9 @@ public class JobServiceImpl implements JobService {
         try (FileOutputStream ous = new FileOutputStream(file)) {
             ous.write(request.getJobConfig().getBytes());
         }
+        if (request.getByCmd() != null && request.getByCmd()) {
+            return submitByCmd(request, file.getPath());
+        }
         // submit job
         JobConfig jobConfig = new JobConfig();
         jobConfig.setName(request.getJobName());
@@ -81,6 +93,37 @@ public class JobServiceImpl implements JobService {
                         clientJobProxy.getJobId(),
                         file.getPath(),
                         HostAddressUtil.getHostAddress());
+        return response;
+    }
+
+    private JobSubmitResponse submitByCmd(final JobSubmitRequest request, final String path)
+            throws InterruptedException, IOException, TimeoutException {
+        String[] strings = {
+            "/bin/bash",
+            seatunnelHome + "/bin/seatunnel.sh",
+            "--config",
+            path,
+            "--jobName",
+            request.getJobName()
+        };
+        Integer exec =
+                CommandUtils.exec(
+                        new LogOutputStream() {
+                            @Override
+                            protected void processLine(String line) {
+                                System.out.println(line);
+                            }
+                        },
+                        new LogOutputStream() {
+                            @Override
+                            protected void processLine(String line) {
+                                System.out.println(line);
+                            }
+                        },
+                        strings);
+
+        JobSubmitResponse response =
+                new JobSubmitResponse(1L, path, HostAddressUtil.getHostAddress());
         return response;
     }
 
