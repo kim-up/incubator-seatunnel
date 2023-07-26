@@ -47,6 +47,15 @@ public class JobController {
         }
     }
 
+    @PostMapping("/restore")
+    public ApiResult<JobSubmitResponse> restore(@RequestBody JobSubmitRequest request) {
+        try {
+            return ApiResult.success(jobService.restore(request));
+        } catch (Exception e) {
+            return ApiResult.failure(e.getMessage());
+        }
+    }
+
     @GetMapping("/cancel/{jobId}")
     public ApiResult<Boolean> cancelJob(@PathVariable("jobId") Long jobId) {
         return ApiResult.success(jobService.cancelJob(jobId));

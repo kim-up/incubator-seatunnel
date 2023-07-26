@@ -26,6 +26,8 @@ public interface JobService {
 
     JobSubmitResponse submit(JobSubmitRequest request) throws Exception;
 
+    JobSubmitResponse restore(JobSubmitRequest request) throws Exception;
+
     String getRunningJobMetrics();
 
     String getJobMetrics(Long jobId);

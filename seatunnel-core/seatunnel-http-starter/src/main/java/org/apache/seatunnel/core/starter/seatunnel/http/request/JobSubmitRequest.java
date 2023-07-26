@@ -23,6 +23,8 @@ import lombok.Data;
 public class JobSubmitRequest {
 
     private String jobName;
+    private String seatunelHome;
     private String jobConfig;
     private Boolean byCmd;
+    private Long jobId;
 }
