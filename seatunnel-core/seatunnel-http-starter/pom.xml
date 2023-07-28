@@ -82,6 +82,13 @@
             <artifactId>zt-exec</artifactId>
             <version>1.8</version>
         </dependency>
+        <!-- logger provider & bridges -->
+        <!-- Declare log4j2 asynchronous loggers provider: disruptor -->
+        <dependency>
+            <groupId>com.lmax</groupId>
+            <artifactId>disruptor</artifactId>
+        </dependency>
+        <!-- logger provider & bridges -->
 
     </dependencies>
 
