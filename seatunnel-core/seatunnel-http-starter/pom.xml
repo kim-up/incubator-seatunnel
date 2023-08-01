@@ -36,7 +36,35 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
             <version>${spring.boot.varsion}</version>
+            <!--            <exclusions>-->
+            <!--                <exclusion>-->
+            <!--                    <groupId>org.springframework.boot</groupId>-->
+            <!--                    <artifactId>spring-boot-starter-logging</artifactId>-->
+            <!--                </exclusion>-->
+            <!--                <exclusion>-->
+            <!--                    <groupId>org.springframework.boot</groupId>-->
+            <!--                    <artifactId>spring-boot-starter-log4j2</artifactId>-->
+            <!--                </exclusion>-->
+            <!--                <exclusion>-->
+            <!--                    <groupId>org.slf4j</groupId>-->
+            <!--                    <artifactId>*</artifactId>-->
+            <!--                </exclusion>-->
+            <!--                <exclusion>-->
+            <!--                    <groupId>org.apache.logging.log4j</groupId>-->
+            <!--                    <artifactId>*</artifactId>-->
+            <!--                </exclusion>-->
+            <!--                <exclusion>-->
+            <!--                    <groupId>ch.qos.logback</groupId>-->
+            <!--                    <artifactId>*</artifactId>-->
+            <!--                </exclusion>-->
+            <!--            </exclusions>-->
         </dependency>
+
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework.boot</groupId>-->
+        <!--            <artifactId>spring-boot-starter-log4j2</artifactId>-->
+        <!--            <version>2.1.3.RELEASE</version>-->
+        <!--        </dependency>-->
 
         <dependency>
             <groupId>org.apache.seatunnel</groupId>
@@ -57,7 +85,7 @@
             <groupId>org.apache.seatunnel</groupId>
             <artifactId>connector-fake</artifactId>
             <version>${project.version}</version>
-            <!--            <scope>provided</scope>-->
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.seatunnel</groupId>
@@ -81,14 +109,17 @@
             <groupId>org.zeroturnaround</groupId>
             <artifactId>zt-exec</artifactId>
             <version>1.8</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>ch.qos.logback</groupId>
+                    <artifactId>logback-classic</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
-        <!-- logger provider & bridges -->
-        <!-- Declare log4j2 asynchronous loggers provider: disruptor -->
-        <dependency>
-            <groupId>com.lmax</groupId>
-            <artifactId>disruptor</artifactId>
-        </dependency>
-        <!-- logger provider & bridges -->
 
     </dependencies>
 
@@ -118,9 +149,10 @@
                             <exclude>org.slf4j:slf4j-log4j12</exclude>
                             <exclude>org.slf4j:log4j-over-slf4j</exclude>
                             <exclude>log4j:*</exclude>
-                            <exclude>commons-logging:*</exclude>
-                            <exclude>ch.qos.logback:*</exclude>
-                            <exclude>org.apache.logging.log4j:log4j-to-slf4j</exclude>
+                            <!--                            <exclude>commons-logging:*</exclude>-->
+                            <!--                            <exclude>ch.qos.logback:*</exclude>-->
+                            <!--                            <exclude>org.apache.logging.log4j:log4j-to-slf4j</exclude>-->
+                            <exclude>org.apache.logging.log4j:log4j-slf4j-impl</exclude>
                             <exclude>org.apache.seatunnel:seatunnel-hadoop3-3.1.4-uber</exclude>
                         </excludes>
                     </artifactSet>

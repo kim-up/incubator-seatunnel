@@ -13,7 +13,7 @@
 
 
     <appender name="seatunnel" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <File>${LOG_HOME}/fin.log</File>
+        <File>${LOG_HOME}/info.log</File>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <FileNamePattern>${LOG_HOME}/seatunnel.log.%d{yyyy-MM-dd}.gz</FileNamePattern>
             <MaxHistory>8</MaxHistory>

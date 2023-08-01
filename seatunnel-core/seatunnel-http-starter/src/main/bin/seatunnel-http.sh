@@ -86,14 +86,6 @@ JAVA_OPTS="${JAVA_OPTS} -Dhazelcast.client.config=${HAZELCAST_CLIENT_CONFIG}"
 JAVA_OPTS="${JAVA_OPTS} -Dseatunnel.config=${SEATUNNEL_CONFIG}"
 JAVA_OPTS="${JAVA_OPTS} -Dhazelcast.config=${HAZELCAST_CONFIG}"
 
-# Log4j2 Config
-#JAVA_OPTS="${JAVA_OPTS} -Dlog4j2.contextSelector=org.apache.logging.log4j.core.async.AsyncLoggerContextSelector"
-#if [ -e "${CONF_DIR}/log4j2-http-client.properties" ]; then
-#  JAVA_OPTS="${JAVA_OPTS} -Dlog4j2.configurationFile=${CONF_DIR}/log4j2-http-client.properties"
-#  JAVA_OPTS="${JAVA_OPTS} -Dseatunnel.logs.path=${APP_DIR}/logs"
-#  JAVA_OPTS="${JAVA_OPTS} -Dseatunnel.logs.file_name=seatunnel-http-client"
-#fi
-
 # Server Debug Config
 # Usage instructions:
 # If you need to debug your code in cluster mode, please enable this configuration option and listen to the specified
@@ -101,7 +93,7 @@ JAVA_OPTS="${JAVA_OPTS} -Dhazelcast.config=${HAZELCAST_CONFIG}"
 # JAVA_OPTS="${JAVA_OPTS} -Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=n"
 
 
-CLASS_PATH=${APP_DIR}/starter/logging/*:${APP_DIR}/lib/*:${APP_JAR}
+CLASS_PATH=${APP_DIR}/starter/logging-http/*:${APP_DIR}/lib/*:${APP_JAR}
 
 while read line
 do
@@ -112,7 +104,7 @@ done < ${APP_DIR}/config/jvm_client_options
 
 if [[ $DAEMON == true && $HELP == false ]]; then
  touch $OUT
- nohup java ${JAVA_OPTS} -cp ${CLASS_PATH} ${APP_MAIN} ${args} > "$OUT" 200<&- 2>&1 < /dev/null &
+ nohup java ${JAVA_OPTS} -cp ${CLASS_PATH} ${APP_MAIN} ${args} --logging.config=classpath:logback-spring.xml  > "$OUT" 200<&- 2>&1 < /dev/null &
  else
  java ${JAVA_OPTS} -cp ${CLASS_PATH} ${APP_MAIN} ${args}
 fi

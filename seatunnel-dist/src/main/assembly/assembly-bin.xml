@@ -145,6 +145,18 @@
             </includes>
         </dependencySet>
 
+        <dependencySet>
+            <useProjectArtifact>false</useProjectArtifact>
+            <useTransitiveDependencies>true</useTransitiveDependencies>
+            <unpack>false</unpack>
+            <outputDirectory>/starter/logging-http</outputDirectory>
+            <includes>
+                <include>ch.qos.logback:logback-classic:jar</include>
+                <include>ch.qos.logback:logback-core:jar</include>
+                <include>org.apache.logging.log4j:log4j-core:jar</include>
+            </includes>
+        </dependencySet>
+
         <!-- ============ Starter Jars ============  -->
         <dependencySet>
             <useProjectArtifact>false</useProjectArtifact>
