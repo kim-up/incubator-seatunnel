@@ -146,6 +146,8 @@
         <json-smart.version>2.4.7</json-smart.version>
         <hadoop-aws.version>3.1.4</hadoop-aws.version>
         <netty-buffer.version>4.1.60.Final</netty-buffer.version>
+        <hadoop-huaweicloud.version>3.1.1.29</hadoop-huaweicloud.version>
+        <esdk.version>3.19.7.3</esdk.version>
     </properties>
 
     <dependencyManagement>
@@ -483,6 +485,17 @@
                 <groupId>io.netty</groupId>
                 <artifactId>netty-buffer</artifactId>
                 <version>${netty-buffer.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.hadoop</groupId>
+                <artifactId>hadoop-huaweicloud</artifactId>
+                <version>${hadoop-huaweicloud.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.huawei.storage</groupId>
+                <artifactId>esdk-obs-java</artifactId>
+                <version>${esdk.version}</version>
             </dependency>
 
         </dependencies>
