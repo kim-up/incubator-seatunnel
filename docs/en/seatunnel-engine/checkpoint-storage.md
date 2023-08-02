@@ -152,6 +152,31 @@ seatunnel:
           kerberosKeytab: your-kerberos-keytab  
 ```
 
+#### OBS
+
+HuaweiCloud oss base on hdfs-file.
+
+you can config like this:
+
+```yaml
+seatunnel:
+  engine:
+    checkpoint:
+      interval: 6000
+      timeout: 7000
+      max-concurrent: 1
+      tolerable-failure: 2
+      storage:
+        type: hdfs
+        max-retained: 3
+        plugin-config:
+          storage.type: obs
+          obs.bucket: your-bucket
+          fs.obs.access.key: your-access-key
+          fs.obs.secret.key: your-secret-key
+          fs.obs.endpoint: endpoint address
+```
+
 #### LocalFile
 
 ```yaml

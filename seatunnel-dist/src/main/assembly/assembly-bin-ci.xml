@@ -185,6 +185,14 @@
                 <!--Add netty buffer jar -->
                 <include>io.netty:netty-buffer:jar</include>
                 <include>io.netty:netty-common:jar</include>
+
+                <!--Add hadoop huaweicloud buffer jar -->
+                <include>org.apache.hadoop:hadoop-huaweicloud:jar</include>
+                <include>com.huawei.storage:esdk-obs-java:jar</include>
+                <include>com.squareup.okhttp3:okhttp:jar</include>
+                <include>com.squareup.okhttp3:okhttp:jar</include>
+                <include>com.squareup.okio:okio:jar</include>
+
             </includes>
             <outputFileNameMapping>${artifact.file.name}</outputFileNameMapping>
             <outputDirectory>/lib</outputDirectory>

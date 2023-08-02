@@ -31,16 +31,9 @@ seatunnel:
                 type: hdfs
                 max-retained: 3
                 plugin-config:
-                    namespace: /seatunnel/checkpoint_snapshot/local/
-                    storage.type: s3
-                    s3.endpoint: obs.cn-east-3.myhuaweicloud.com
-                    s3.bucket: obs://dc-for-test
-                    fs.s3a.access.key: CYJSSRJCD6DIQ8EXOBVL
-                    fs.s3a.secret.key: ry5SGppSeqgHWBbJMGoHH4a4P0uB9KQ0XL0YvNk9
-                    fs.s3a.aws.credentials.provider: org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider
-#                    namespace: /tmp/seatunnel/checkpoint_snapshot/
-#                    storage.type: hdfs
-#                    fs.defaultFS: file:///tmp/
+                    namespace: /tmp/seatunnel/checkpoint_snapshot/
+                    storage.type: hdfs
+                    fs.defaultFS: file:///tmp/
         telemetry:
             metric:
                 enabled: true
