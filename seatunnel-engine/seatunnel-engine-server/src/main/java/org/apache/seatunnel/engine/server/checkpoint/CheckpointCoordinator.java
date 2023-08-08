@@ -285,8 +285,12 @@ public class CheckpointCoordinator {
                     .get(taskLocation)
                     .forEach(
                             tuple -> {
-                                ActionState actionState =
-                                        latestCompletedCheckpoint.getTaskStates().get(tuple.f0());
+                                Map<ActionStateKey, ActionState> taskStates =
+                                        latestCompletedCheckpoint.getTaskStates();
+                                ActionStateKey key = tuple.f0();
+                                String keyString = key.toString();
+                                LOG.info("keyString:{}", keyString);
+                                ActionState actionState = taskStates.get(key);
                                 if (actionState == null) {
                                     return;
                                 }

@@ -201,6 +201,7 @@ public class HdfsStorage extends AbstractCheckpointStorage {
                             + pipelineId);
             return null;
         }
+        log.info("latestFileName:{}", latestFileName);
         return readPipelineState(latestFileName, jobId);
     }
 

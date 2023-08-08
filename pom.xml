@@ -519,7 +519,6 @@
                 <artifactId>esdk-obs-java</artifactId>
                 <version>${esdk.version}</version>
             </dependency>
-
         </dependencies>
     </dependencyManagement>
 

@@ -31,9 +31,12 @@ seatunnel:
                 type: hdfs
                 max-retained: 3
                 plugin-config:
-                    namespace: /tmp/seatunnel/checkpoint_snapshot/
-                    storage.type: hdfs
-                    fs.defaultFS: file:///tmp/
+                    namespace: /seatunnel/checkpoint_snapshot/test/
+                    storage.type: obs
+                    fs.obs.endpoint: obs.cn-east-3.myhuaweicloud.com
+                    obs.bucket: obs://dc-for-test
+                    fs.obs.access.key: CYJSSRJCD6DIQ8EXOBVL
+                    fs.obs.secret.key: ry5SGppSeqgHWBbJMGoHH4a4P0uB9KQ0XL0YvNk9
         telemetry:
             metric:
                 enabled: true

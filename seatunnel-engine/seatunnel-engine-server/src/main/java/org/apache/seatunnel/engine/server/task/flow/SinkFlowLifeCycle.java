@@ -75,7 +75,7 @@ public class SinkFlowLifeCycle<T, CommitInfoT extends Serializable, AggregatedCo
 
     private Optional<SinkCommitter<CommitInfoT>> committer;
 
-    private Optional<CommitInfoT> lastCommitInfo = Optional.empty();
+    private Optional<CommitInfoT> lastCommitInfo;
 
     private MetricsContext metricsContext;
 

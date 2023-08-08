@@ -208,7 +208,9 @@ public class ClickhouseSinkWriter
             }
             return false;
         } catch (SQLException e) {
-            throw new ClickhouseConnectorException(CommonErrorCode.SQL_OPERATION_FAILED, e);
+            //            throw new
+            // ClickhouseConnectorException(CommonErrorCode.SQL_OPERATION_FAILED, e);
+            return false;
         }
     }
 }
