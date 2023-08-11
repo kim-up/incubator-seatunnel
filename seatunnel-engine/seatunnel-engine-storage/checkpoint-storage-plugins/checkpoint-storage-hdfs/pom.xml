@@ -74,7 +74,7 @@
         <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-huaweicloud</artifactId>
-            <scope>provided</scope>
+            <!--            <scope>provided</scope>-->
             <exclusions>
                 <exclusion>
                     <groupId>com.huawei.storage</groupId>
@@ -85,19 +85,19 @@
         <dependency>
             <groupId>com.huawei.storage</groupId>
             <artifactId>esdk-obs-java</artifactId>
-            <scope>provided</scope>
+            <!--            <scope>provided</scope>-->
         </dependency>
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
             <artifactId>okhttp</artifactId>
             <version>3.11.0</version>
-            <scope>provided</scope>
+            <!--            <scope>provided</scope>-->
         </dependency>
         <dependency>
             <groupId>com.squareup.okio</groupId>
             <artifactId>okio</artifactId>
             <version>1.14.0</version>
-            <scope>provided</scope>
+            <!--            <scope>provided</scope>-->
         </dependency>
     </dependencies>
 
