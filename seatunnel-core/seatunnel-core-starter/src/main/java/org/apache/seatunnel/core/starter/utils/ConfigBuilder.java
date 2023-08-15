@@ -65,7 +65,8 @@ public class ConfigBuilder {
                 adapterSupplier
                         .map(adapter -> of(adapter, filePath))
                         .orElseGet(() -> ofInner(filePath));
-        log.info("Parsed config file: {}", config.root().render(CONFIG_RENDER_OPTIONS));
+        String render = config.root().render(CONFIG_RENDER_OPTIONS);
+        log.info("Parsed config file: {}", render.replaceAll("\"password:\".*\"", "password:"));
         return config;
     }
 
